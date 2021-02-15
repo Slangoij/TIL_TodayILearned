@@ -22,7 +22,7 @@ DB와 파이썬과의 연동
 다음은 파이썬으로 해당 모듈을 호출하고 이전에 작업했던 'emp' 테이블과 연동시키는 방법이다.
 
 **1. CREATE/INSERT**
-```sql
+```python
 create_sql = 'create table test(id varchar2(10), name varchar2(100), age number(3))'
 insert_sql = 'INSERT INTO test VALUES (:1, :2, :3)'
 
@@ -40,7 +40,7 @@ with cx_Oracle.connect('c##scott_join/tiger@localhost:1521/XE') as conn:
 ```
 
 **2. DELETE**
-```sql
+```python
 delete_sql = "DELETE FROM test WHERE name=:1"
 with cx_Oracle.connect('c##scott_join/tiger@localhost:1521/XE') as conn:
     with conn.cursor() as cursor:
@@ -49,7 +49,7 @@ with cx_Oracle.connect('c##scott_join/tiger@localhost:1521/XE') as conn:
 ```
 
 **3. UPDATE**
-```sql
+```python
 update_sql = "UPDATE test SET name=:1"
 with cx_Oracle.connect('c##scott_join/tiger@localhost:1521/XE') as conn:
     with conn.cursor() as cursor:
@@ -58,7 +58,7 @@ with cx_Oracle.connect('c##scott_join/tiger@localhost:1521/XE') as conn:
 ```
 
 **4. SELECT**
-```sql
+```python
 select_sql = "select * from test"
 with cx_Oracle.connect('c##scott_join/tiger@localhost:1521/XE') as conn:
     with conn.cursor() as cursor:
