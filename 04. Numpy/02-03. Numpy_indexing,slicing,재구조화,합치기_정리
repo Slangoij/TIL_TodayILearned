@@ -1,0 +1,209 @@
+인덱싱과 슬라이싱
+================
+
+# 1. 배열 인덱싱(Indexing)
+- 파이썬 리스트와 차이점
+  - 1. list는 원소를 `list[행][열]`로 조회하지만
+       배열 ndarray는 `arr[행,열]`로 행과 열을 순서대로 묶어서 전달하여 조회한다.
+  - 2. 팬시 인덱싱(Fancy Indexing)
+    - 여러 개의 원소를 한번에 조회할 수 있는 인덱싱 기법.
+    - 다차원 배열의 경우 각 축별로 각각의 인덱스를 한번에 묶어 전달한다.
+    - ex) arr[[0,3],[1,4]] 는 arr의 [0,1] 위치와 [3,4] 위치의 원소를 한번에 리스트로 반환해준다.
+
+### 1-1. boolean indexing
+- 인덱스에 boolean 배열을 넣으면 True인 index의 값만 조회한다.
+- 넘파이에서의 비교연산자는 파이썬의 and, or, not을 활용하지 못하니 `&`, `|`, `~`를 사용하자.
+- ex)
+- ```python
+  # boolean indexing을 활용하기 위해 bool변수를 가진 똑같은 shape의 배열을 만들자.
+  # 벡터화(연산)
+  # 배열 + 배열 : 같은 인덱스의 원소끼리 연산
+  a = np.array([1,2,3])
+  b = np.array([10,20,30])
+  print(a + b)
+
+  arr = np.arange(100)
+  np.random.shuffle(arr)
+  print(arr)
+  ```
+- numpy.where(): boolean연산과 같이 쓰면 이를 만족하는 원소의 index를 반환해주는 메소드.
+  - 구문: np.where(booean 배열, True를 대체할 값, False를 대체할 값)
+  - ex)
+  - ```python
+  # 0: 여성, 1: 남성
+  gender = np.random.choice([0,1], size=20)
+  print(gender)
+  print(np.where(gender==0,'여성','남성'))
+  ```
+
+- - -
+
+# 2. 슬라이싱
+- 인덱싱과 마찬가지지만 각 축에 인덱스를 부분적으로 담아 `:` 를 사용해
+- 파이썬 슬라이싱과 같은 방법으로 조회한다고 생각하면 된다.
+- ex)
+  ```python
+  a = np.arange(20).reshape(4,5)
+  print(a.shape)
+  print(a)
+  print(a[1:3, 2:4])
+  print(a[1:3]) # 마지막 축은 전부 가져오는 경우 ':' 생략 가능
+  print(a[:,2:4])
+  ```
+- `주의!`: 슬라이싱하여 반환된 결과는 얕은 복사된 결과로 여기서 값을 변경하면 원본의 값도 변경되니 주의하자.
+- 해결책: 배열.copy() 로 깊은 복사를 통해 새 배열을 만들어 활용하자.
+
+- - -
+
+# 3. 기타
+  - np.any(boolean 배열) : 배열에 True가 하나라도 있으면 True 반환
+  - np.all(boolean 배열) : 배열의 모든 원소가 True일 때만 True 반환
+  - ex)
+  ```python
+  arr = np.random.choice(list(range(60)), size=20)
+  print('any',np.any([False,False,False]))
+  print('any',np.any([True,False,False]))
+  print('all',np.all([True,True,True]))
+  print('all',np.all([True,False,True]))
+  print('any',np.any(arr>50)) # arr안에 50 초과인 값이 하나라도 있는가?
+  ```
+  - np.sort(arr): arr을 정렬
+  - np.argsort(arr) : 정렬 후 index를 반환
+  
+
+- - -
+
+
+배열의 재구조화_합치기_나누기
+============================
+
+# 1. 형태 변경
+- 차원 늘리기
+  - 1. reshape를 통한 차원 변경
+  - 2. np.newaxis를 통한 차원 늘리기
+  - 3. index에 `...`를 사용하여 양 끝 중 하나의 차원 늘리기
+  - 4. np.expand_dims를 사용한 axis 정하여 차원 늘리기
+  - ex)
+  ```python
+  import numpy as np
+  a = np.arange(20)
+  print(a.shape, a.size)
+  print(a,end='\n\n')
+
+  # 1. reshape를 통한 차원 변경
+  b = np.reshape(a, (4,5))
+  print(b.shape, b.size)
+  print(b,end='\n\n')
+
+  # 참고 - newshape을 지정할 때 특정 축에 -1를 주면 원소수에 맞춰서 size를 정한다.(전체 축 중 하나만 사용가능)
+  a_1 = np.reshape(a, (5,-1)) # 5 x ? = 20
+  print(a_1)
+
+  # 2. np.newaxis를 통한 차원 늘리기
+  # a: (5, ) => z: (1, 5, 1)
+  z = a[np.newaxis, :, np.newaxis]
+  print(z.shape)
+  print(z)
+
+  # 3. index에 `...`를 사용하여 양 끝 중 하나의 차원 늘리기
+  b3 = a[..., np.newaxis]
+  print(b3.shape)
+  print(b3)
+
+  # 4. np.expand_dims로 axis 지정하여 차원 늘리기
+  # (5,) -> (5,1)
+  a1 = np.expand_dims(a, axis=1)
+  print(a1.shape)
+  print(a1, end='\n\n')
+  # (5,) -> (1,5)
+  a2 = np.expand_dims(a, axis=0)
+  print(a2.shape)
+  print(a2)
+  ```
+- 차원 줄이기
+ - 1. np.squeeze()
+ - 2. 배열객체.flatten()
+ - ex)
+ ```python
+  # 1. np.squeeze()
+  a = np.arange(12).reshape(1,2,1,2,3,1)
+  print(a.shape)
+
+  b = np.squeeze(a)
+  print(b.shape)
+
+  # 2. 배열객체.flatten()
+  d = a.flatten()
+  print(d.shape)
+  print(d)
+  ```
+
+# 2. 배열에 내용 추가/삽입/삭제
+  - 1. append
+  - 2. insert
+  - 3. delete
+  - ex)
+  ```python
+  l = [
+      [1,1],
+      [2,2],
+      [3,3]
+  ]
+  b = np.array(l)
+
+  # 1. append
+  r2 = np.append(b, [[4,4],[5,5],[6,6]], axis=0)
+  print(r2.shape)
+  print(r2)
+
+  r4 = np.append(b, [[4,4,4],[5,5,5],[6,6,6]], axis=1)
+  print(r4.shape)
+  print(r4)
+
+  # 2. insert
+  b = np.array([[1,1],[2,2],[3,3]])
+  print(b)
+  b1 = np.insert(b, 1, 100) # axis 생략시에는 무조건 faltten(), 그리고 뒤에 insert()
+  print(b1)
+  b4 = np.insert(b, 2, 100, axis=0) # 동일한 값을 넣을 경우 정수 하나(스칼라값)을 넣어서도 가능
+  print(b4)
+  b6 = np.insert(b, 1, [[10,20,30],[5,6,7]], axis=1)
+  print(b6)
+
+  # 3. delete
+  a = np.arange(10)
+  print(a)
+
+  r = np.delete(a,0)
+  print(r)
+  r1 = np.delete(a, [2,5,6])
+  print(r1)
+  ```
+  
+# 3. 배열 합치기
+  - 1. np.concatenate(합칠 배열리스트, axis=0)
+  - 2. 배열이 행렬(2차원)일 경우
+    - np.vstack(합칠 배열리스트)
+    - np.hstack(합칠 배열리스트)
+  - ex)
+  ```python
+  a = np.arange(12).reshape(2,2,3)
+  b = np.arange(2*2*7).reshape(2,2,7)
+
+  # 1. np.concatenate(합칠 배열리스트, axis=0)
+  r = np.concatenate([a,b], axis=2)
+  print(a.shape, b.shape, r.shape)
+  print(r)
+
+  # 2. vstack
+  print(np.vstack([m,n]))
+  print(np.vstack([m,o,n]))
+  # 1축의 개수가 같아야 한다.
+
+  # 3. hstack
+  print(np.hstack([m,n]))
+  print(np.hstack([m,o,n]))
+  ```
+# 4. 배열 분할하기
+  - 
+  
