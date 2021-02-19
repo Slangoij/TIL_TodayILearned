@@ -24,6 +24,7 @@
   - 반복문으로 직접 짜는 것보다 범용함수를 사용하는 것이 속도가 훨씬 빠르다.
   - 주요함수
     - 1. 단항 범용함수
+    - 
       ![1](https://user-images.githubusercontent.com/71580318/108481567-b3825700-72db-11eb-9518-a1a50911a735.PNG)
       - ex)
       ```python
@@ -40,6 +41,7 @@
       print(np.sum(np.isnan(b)))
       ```
     - 2. 이항 범용함수
+    - 
       ![2](https://user-images.githubusercontent.com/71580318/108481709-dd3b7e00-72db-11eb-8442-b0d53fd7f9e9.PNG)
       - ex)
       ```python
