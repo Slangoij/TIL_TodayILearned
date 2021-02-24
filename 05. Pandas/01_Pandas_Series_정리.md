@@ -13,61 +13,88 @@
 # 2. `Series`
   - DataFrame의 한 행이나 열을 표현
   - 각 원소는 index로 접근 가능 및 벡터화 연산 지원
-    - 01. 생성
-      ```python
-      # 판다스 모듈 import
-      import pandas as pd
-      # 보통은 데이터 분석 시 넘파이와 매트플롯라이브러리 모두 import하고 시작
-      import numpy as np
-      import matplotlib.pyplot as plt
-      
-      pd.Series([10,20]) # 이처럼 리스트, 또는 튜플, 넘파이배열 모두 매개변수로 활용하여 시리즈 생성가능
-      ```
-    - 02. 원소 접근
-      - Indexing
-        - index 순번으로 조회
-          - Series[순번]
-          - Series.iloc[순번] - iloc indexer
-        - index 이름으로 
-          - Series[index명]
-          - Series.loc[index명] - loc indexer
-          - Series.index명
-              - index명이 문자열일 경우 `. 표기법` 사용가능
-          - index명이 문자열이면 문자열(" ") 로, 정수이면 정수로 호출
-              - s['name'], s[2], s.loc['name'], s.loc[2]
-        - Fancy 인덱싱 가능( 리스트로 묶어서 인덱스 전달)
-      - Slicing
-        - `Series[start index :  end index : step]`
-            - end index
-                - index 순번일 경우는 포함 하지는다.
-                - index 명의 경우는 포함한다.
-        - Slicing의 결과는 원본의 참조(View)를 반환(얉은 복사)
-      - ex)
-      ```python
-      # 영어 - index(명)
-      print(s3['영어'], s3.loc['영어'], s3.영어)
+  
+  - 01. 생성
+    ```python
+    # 판다스 모듈 import
+    import pandas as pd
+    # 보통은 데이터 분석 시 넘파이와 매트플롯라이브러리 모두 import하고 시작
+    import numpy as np
+    import matplotlib.pyplot as plt
 
-      # .표기법(s3.영어) : index명이 숫자로 시작하는 경우, 변수이름으로 불가능한 글자가 있는 경우 사용 불가
-      s5 = pd.Series([10,20,30], index=['국어 점수','영어#점수','2영어 점수'])
-      # print(s5.국어 점수)
+    pd.Series([10,20]) # 이처럼 리스트, 또는 튜플, 넘파이배열 모두 매개변수로 활용하여 시리즈 생성가능
+    ```
+  - 02. 원소 접근
+    - Indexing
+      - index 순번으로 조회
+        - Series[순번]
+        - Series.iloc[순번] - iloc indexer
+      - index 이름으로 
+        - Series[index명]
+        - Series.loc[index명] - loc indexer
+        - Series.index명
+            - index명이 문자열일 경우 `. 표기법` 사용가능
+        - index명이 문자열이면 문자열(" ") 로, 정수이면 정수로 호출
+            - s['name'], s[2], s.loc['name'], s.loc[2]
+      - Fancy 인덱싱 가능( 리스트로 묶어서 인덱스 전달)
+    - Slicing
+      - `Series[start index :  end index : step]`
+          - end index
+              - index 순번일 경우는 포함 하지는다.
+              - index 명의 경우는 포함한다.
+      - Slicing의 결과는 원본의 참조(View)를 반환(얉은 복사)
+    - ex)
+    ```python
+    # 영어 - index(명)
+    print(s3['영어'], s3.loc['영어'], s3.영어)
 
-      s6 = pd.Series([10,20,30], index=[100,200,300])
-      print(s6)
-      
-      # fancy indexing - 한번에 여러 값 조회
-      print(s3[[1,2,3]])
-      print(s3[['영어','수학']])
-      
-      # 시리즈(데이터프레임)의 index명은 중복 가능
-      s8 = pd.Series(np.arange(5), index=['a','b','c','d','d'])
-      print(s8)
-      print(s8['d'])
+    # .표기법(s3.영어) : index명이 숫자로 시작하는 경우, 변수이름으로 불가능한 글자가 있는 경우 사용 불가
+    s5 = pd.Series([10,20,30], index=['국어 점수','영어#점수','2영어 점수'])
+    # print(s5.국어 점수)
 
-      s9 = pd.Series(np.arange(6), index=['k','r','c','d','s','d'])
-      # print(s9['k':'d']) # 동일한 이름이 모여있으면 상관없지만 다른 문자가 껴있으면 에러
-      ```
+    s6 = pd.Series([10,20,30], index=[100,200,300])
+    print(s6)
+
+    # fancy indexing - 한번에 여러 값 조회
+    print(s3[[1,2,3]])
+    print(s3[['영어','수학']])
+
+    # 시리즈(데이터프레임)의 index명은 중복 가능
+    s8 = pd.Series(np.arange(5), index=['a','b','c','d','d'])
+    print(s8)
+    print(s8['d'])
+
+    s9 = pd.Series(np.arange(6), index=['k','r','c','d','s','d'])
+    # print(s9['k':'d']) # 동일한 이름이 모여있으면 상관없지만 다른 문자가 껴있으면 에러
+    ```
         
-    - 03. Indexing, Slicing을 통해 값 변경시 조심스러우면 `.copy()`를 통해 깊은 복사 후 진행
-    - 04. Boolean 인덱싱
-      - Series 의 indexing 연산자에 boolean 리스트를 넣으면 True인 index의 값들만 조회한다.
-    - 05. 주요 메소드
+  - 03. Indexing, Slicing을 통해 값 변경시 조심스러우면 `.copy()`를 통해 깊은 복사 후 진행
+  - 04. Boolean 인덱싱
+    - Series 의 indexing 연산자에 boolean 리스트를 넣으면 True인 index의 값들만 조회한다.
+  - 05. 주요 메소드
+    - ![2021-02-24 18;31;59](https://user-images.githubusercontent.com/71580318/108980131-b364cb80-76ce-11eb-842c-52baaff2ae4b.PNG)
+    - ![2021-02-24 18;32;33](https://user-images.githubusercontent.com/71580318/108980198-c37cab00-76ce-11eb-8536-71cd916fd89c.PNG)
+  - 06. 통계량
+    - 극단치로 간주하는 범위 관련
+    ```python
+    # 분위수
+    arr = pd.Series(np.arange(1,11))Q1, Q2, Q3 = arr.quantile(q=[0.25, 0.5, 0.75])
+    IQR = Q3 - Q1
+    param = 1.5 # 보통 이 구간으로 극단치 기준 설정한다.
+    param = 2
+    param = 1.2
+    print("IQR: ", IQR)
+    s_range = Q1 - IQR*param
+    e_range = Q3 + IQR*param
+    print("극단치(작은 쪽) 범위:", s_range)
+    print("극단치(큰 쪽) 범위:", e_range)
+    ```
+  - 07. 결측치
+    - 결측치 확인
+      - 넘파이와 비슷하지만 `.isnull()`로 시리즈와 데이터프레임 모두, `.isna()`로 데이터프레임 확인 가능
+    - 결측치 처리
+      - 제거 
+        - dropna()
+      - 다른 값으로 대체 (주로 평균, 중앙값, 최빈값 등의 대표값으로)
+        - fillna()
+  - 08. 벡터화 연산 
