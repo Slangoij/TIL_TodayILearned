@@ -263,7 +263,12 @@
         - `DF.iloc[행번호 , 열번호]`  
             - 행과 열 조회
             - 행열 모두 순번으로 지정
-
-
-
-
+    - 04. Boolean indexing 조회
+      - 다중조건의 경우 `()`로 묶는다
+      - 파이썬과 달리 `&`, `|`, `~`의 논리연산자 사용
+      - 구문: `DataFrame객체[조건], DataFrame객체.loc[조건]` - 조건이 True인 행만 조회
+        - 열까지 선택시 `DataFrame객체[조건][열]` 또는 `DataFrame객체.loc[조건, 열]` 로 조회
+      ```python
+      # 국어 또는 영어가 80점 이상
+      grade.loc[(grade['korean']>=80) | (grade['english']>=80)]
+      ```
