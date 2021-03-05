@@ -14,7 +14,7 @@
 - - -
 
 
-### 1. `merge()`
+### 2. `merge()`
 - 구문: `dataframe.merge(합칠dataframe, how='inner', on=None, left_on=None, right_on=None, left_index=False, right_index=False)`
 - 조인 기준: 같은 컬럼명 기준(equi-join), 기본방식: inner join
 - 매개변수
