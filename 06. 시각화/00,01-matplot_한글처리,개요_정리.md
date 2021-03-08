@@ -3,7 +3,7 @@
 ### 기본설정
 - matplotlib을 사용할 때 기본적으로 한글이 깨져서 나온다.
 - 해결방법
-  - 1. 설정파일 변경
+  1. 설정파일 변경
   ```python
   # 폰트 cache파일 삭제
   import matplotlib as mpl
@@ -34,7 +34,7 @@
   import matplotlib as mpl
   mpl.matplotlib_fname() # 로 찾아 조회 후 해당 파일내에서 주석을 풀고 위의 설정으로 각각 찾아 변경
   ```
-  - 2. 설정 변경하는 코드 작성
+  2. 설정 변경하는 코드 작성
   ```python
   import matplotlib as mpl
   from matplotlib import font_manager as fm
@@ -108,22 +108,22 @@
     ```
     
   ### 2. 그래프 그리기
-  - 1. matplotlib.pyplot 모듈 import
+  1. matplotlib.pyplot 모듈 import
     - 2차원 그래프(axis가 두개인 그래프)를 그리기 위한 함수를 제공하는 모듈
     - 관례적으로 plt를 별칭(alias)으로 사용
     - `import matplotlib.pyplot as plt`
-  - 2. 그래프를 그린다.
+  2. 그래프를 그린다.
       - 2가지 방식
           - pyplot 모듈 이용
           - Figure와 Axes 객체 이용
-  - 3. 그래프에 필요한 설정을 한다.
-  - 4. 화면에 그린다.
+  3. 그래프에 필요한 설정을 한다.
+  4. 화면에 그린다.
       - 지연 랜더링(Deferred rendering) 메커니즘
       - 마지막에 `pyplot.show()` 호출 시 그래프를 그린다.
           - 주피터 노트북 맨 마지막 코드에 `;`를 붙이는 것으로 대체 가능
   
   - 그래프를 작성 2가지 방식의 구문
-      - 1) pyplot 모듈 이용
+      1) pyplot 모듈 이용
       ```python
       import matplotlib.pyplot as plt
 
