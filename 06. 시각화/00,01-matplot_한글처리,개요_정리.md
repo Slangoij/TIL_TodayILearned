@@ -221,6 +221,7 @@
       import matplotlib as mpl
       mpl.rcParams.update(mpl.rcParamsDefault)
       ```
+  - 구문
   ```python
   # plt.style.use(['dark_background'])
   import numpy as np
