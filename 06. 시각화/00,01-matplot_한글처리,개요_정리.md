@@ -122,30 +122,118 @@
       - 마지막에 `pyplot.show()` 호출 시 그래프를 그린다.
           - 주피터 노트북 맨 마지막 코드에 `;`를 붙이는 것으로 대체 가능
   
-  - 그래프를 작성 2가지 방식의 구문
-      1) pyplot 모듈 이용
+  
+  ### 3. 2가지 그래프 작성방식
+  1) pyplot 모듈 이용
+  ```python
+  import matplotlib.pyplot as plt
+
+  # figure의 크기
+  plt.figure(figsize=(5,10)) # 가로, 세로 크기 - inch 단위
+  # subplot 지정
+  plt.subplot(2,1,1) # 그래프를 그릴 axes(subplot)을 지정
+  # 그래프 그리기
+  plt.plot([1,2,3],[10,20,30])
+  # 추가 설정
+  plt.title('첫번째')
+
+  # subplot지정
+  plt.subplot(2,1,2)
+  # 그래프 그리기
+  plt.scatter([1,2,3],[10,20,30])
+  # 추가 설정
+  plt.title('두번째')
+
+  plt.show()
+  ```
+  2) Figure와 Axes객체를 이용
+  - figure객체에 axes를 추가하는 형태
+  - `figure.add_subplot()`메소드와 `pyplot.subplots()`함수를 이용하는 두 방법.
+    - (1) `figure.add_subplot()`메소드
+    ```python
+    fig2 = plt.figure(figsize=(10,7))
+    ax1 = fig2.add_subplot(1,3,1)
+    ax2 = fig2.add_subplot(1,3,2)
+    ax3 = fig2.add_subplot(3,3,3)
+    ax4 = fig2.add_subplot(3,3,6)
+    ax5 = fig2.add_subplot(3,3,9)
+
+    for i, ax in enumerate([ax1, ax2, ax3, ax4, ax5], start=1):
+        ax.text(.5,.5, f'ax {i}', fontsize=30)
+        # subplot의 title을 지정
+        ax.set_title(f'ax {i}') # pyplot모듈과는 메소드이름이 다르다
+        # x, y축 label
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+
+    plt.tight_layout() # subplot 배치를 자동으로 처리
+    plt.show()
+    ```
+    - (2) `pyplot.subplots()`함수
+    ```python
+    import matplotlib.pyplot as plt
+    fig, axes = plt.subplots(2,2, figsize=(10,10)) # 행수, 열수
+    fig.suptitle('Figure 제목', size=40)
+    print(type(axes), axes.shape, type(axes[0,0]))
+
+    ax1, ax2, ax3, ax4 = axes.flatten()
+    # -> 외부 모듈에서 넘파이 객체를 받아올때도 import numpy를 할 필요없음
+    ax1.scatter([1,2,1,2,6],[7,3,4,2,1])
+    ax1.set_title('[0,0]')
+    # axes[0,0].scatter([1,2,1,2,6],[7,3,4,2,1])
+    # axes[0,0].set_title('[0,0]')
+    ax2.plot([1,2,3],[1,2,3], label='line1')
+    ax2.plot([1,2,3],[3,2,1], label='line2')
+    ax2.grid(True)
+    ax2.legend()
+
+    for i, ax in enumerate([ax1, ax2, ax3, ax4], start=1):
+        x, y = .5, .5
+        if ax == ax1:
+            x, y = 5, 5
+        ax.text(x, y, f'ax{i}', fontsize=20)
+
+    plt.show()
+    ```
+
+
+  ### 4. 그래프 색상, 스타일 설정
+  1) 색 지정
+  - HTML 컬러문자열
+    - #으로 시작하며 RGB의 성분을 16진수로 표현
+    - #RRGGBB 또는 #RRGGBBAA
+    - #FF0000, #00FF00FA
+  - 0 ~ 1 사이 실수로 흰식과 검정색 사이의 회색조를 표시
+      - 0: 검정, 1: 흰색
+  ```python
+  plt.figure(figsize=(7,7))#, facecolor='m')
+  # plt.plot([1,2,3], [10,20,30], color='#C878F4')
+  # plt.plot([1,2,3], [10,20,30], color='##FF000A0')
+  plt.plot([1,2,3], [10,20,30], color='.9') # 0(검정) ~ 1(흰색) 실수 - 회색조
+  plt.show()
+  ```
+  2) Style
+  - Style: 그래프의 여러 시각효과들을 미리 설정해 놓은 것
+  - matplotlib는 다양한 스타일들을 미리 정의해 놓고 있다.
+      - `plt.style.use()` 함수 이용해 지정
+      - 스타일 초기화
       ```python
-      import matplotlib.pyplot as plt
-
-      # figure의 크기
-      plt.figure(figsize=(5,10)) # 가로, 세로 크기 - inch 단위
-      # subplot 지정
-      plt.subplot(2,1,1) # 그래프를 그릴 axes(subplot)을 지정
-      # 그래프 그리기
-      plt.plot([1,2,3],[10,20,30])
-      # 추가 설정
-      plt.title('첫번째')
-
-      # subplot지정
-      plt.subplot(2,1,2)
-      # 그래프 그리기
-      plt.scatter([1,2,3],[10,20,30])
-      # 추가 설정
-      plt.title('두번째')
-
-      plt.show()
+      import matplotlib as mpl
+      mpl.rcParams.update(mpl.rcParamsDefault)
       ```
-  
-  
-  
-  
+  ```python
+  # plt.style.use(['dark_background'])
+  import numpy as np
+  x = np.linspace(1,10, num=100)
+
+  # plt.style.use('ggplot')
+  plt.style.use('seaborn')
+
+  plt.figure(figsize=(7,7))
+  plt.plot(x, x+3)
+  plt.plot(x, x+2)
+  plt.plot(x, x+1)
+  plt.plot(x, x)
+
+  plt.show()
+  ```
