@@ -155,8 +155,8 @@ tokenize_text2(txt)
 ```
 
 ### 04. 분석을 위한 클래스
-Text클래스
-- 문서 석에 유용한 메소드 제공
+1. Text클래스
+- 문서 분석에 유용한 메소드 제공
 - 생성
   - Text(토큰리스트, [name=이름])
 - 주요 메소드
@@ -190,3 +190,56 @@ plt.figure(figsize=(10,7))
 news_text.dispersion_plot(['son', 'koean', 'say'])
 plt.show()
 ```
+
+2. FreqDist
+- document에서 사용된 토큰의 사용빈도 데이터를 갖는 클래스 => key: 토큰, value: 개수 를 갖는 딕셔너리
+- 생성
+  - Text객체의 vocab()로 조회
+  - 생성자에 토큰리스트를 넣어 직접 생성 가능
+- 주요 메소드
+  - `B()`: 출연한 고유 단어의 개수
+  - `N()`: 총 단어수
+  - `get(단어)` or FreqDist['단어']: 특정 단어 출연 빈도수
+  - `freq(단어)`: 총 단어수 대비 특정단어 출연비율
+  - `most_common()`: 빈도수 순서로 정렬된 리스트 반환
+```python
+# FreaqDist객체 생성
+freq = news_text.vocab()
+# 다른 방법
+from nltk import FreqDist
+freq2 = FreqDist(['a','b','c'])
+
+print("총단어수: {}, 고유단어개수: {}".format(freq.N(), freq.B()))
+print("단어 london의 빈도수: {}, {}, {}".format(freq.get('london'), freq['london'], news_text.count('london')))
+print("단어 london의 출연비율:{}, {}".format(6/1197, freq.freq('london')))
+print(freq.most_common())
+```
+
+3. wordcloud
+- 단어의 빈도수 시각화, 빈도수가 높으면 크게, 적으면 작게 단어 표현.
+```python
+# [(f.name, f.fname) for f in fm.fontManager.ttflist if 'malgun' in f.name.lower()]
+# 에서 맑은 고딕(한글지원) 폰트 경로 조회
+font_path = 'C:\\WINDOWS\\Fonts\\malgun.ttf'
+
+from wordcloud import WordCloud
+# 설정
+wc = WordCloud(font_path=font_path,
+              max_words=200, # 출연단어의 최대 개수
+              prefer_horizontal=0.7, # 가로쓰기의 비율
+              relative_scaling=0.7, # 0 ~ 1 사이의 실수. 1에 가까울수록 빈도수가 많은 단어와 적은 단어 크기 차이를 크게 한다.)
+               min_font_size=1,
+               max_font_size=50, # 가장 작은 폰트크기, 가장 큰 폰트크기 지정
+               background_color='white'
+              )
+# WordCloud객체에 데이터 넣기
+word_cloud = wc.generate_from_frequencies(freq) # 딕셔너리: {단어: 빈도수, 단어:빈도수, ...}
+
+# matplotlib으로 출력
+plt.figure(figsize=(15,15))
+plt.imshow(word_cloud)
+plt.axis('off')
+plt.show()
+```
+
+4. ConVectorizer로 TDM 만들기(뒤에서 이어서)
