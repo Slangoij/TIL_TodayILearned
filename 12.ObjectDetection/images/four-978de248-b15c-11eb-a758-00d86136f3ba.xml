@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>four-978de248-b15c-11eb-a758-00d86136f3ba.jpg</filename>
+	<path>C:\Users\inje.jeong\01_Gookbi_Education\10.ObjectDetection\images\four-978de248-b15c-11eb-a758-00d86136f3ba.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>480</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>four</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>111</xmin>
+			<ymin>168</ymin>
+			<xmax>243</xmax>
+			<ymax>381</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,29 @@
+{
+    "Records":[
+        {
+            "keywords":"apple",
+            "limit":5,
+            "format":"jpg",
+            "color-type":"full- color",
+            "print_url":true,
+            "print_size":true
+        },
+        {
+            "keywords":"watermelon",
+            "limit":5,
+            "format":"bmp",
+            "color-type":"full- color",
+            "print_url":true,
+            "print_size":true
+        },
+        {
+            "keywords":"peach",
+            "limit":200,
+            "format":"jpg",
+            "color-type":"full- color",
+            "print_url":true,
+            "print_size":true,
+            "chromedriver":"c:\\tools\\chromedriver.exe"
+        }
+    ]
+}

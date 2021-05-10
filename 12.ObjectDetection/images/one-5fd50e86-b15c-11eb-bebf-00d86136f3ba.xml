@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>one-5fd50e86-b15c-11eb-bebf-00d86136f3ba.jpg</filename>
+	<path>C:\Users\inje.jeong\01_Gookbi_Education\10.ObjectDetection\images\one-5fd50e86-b15c-11eb-bebf-00d86136f3ba.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>480</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>one</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>210</xmin>
+			<ymin>200</ymin>
+			<xmax>345</xmax>
+			<ymax>434</ymax>
+		</bndbox>
+	</object>
+</annotation>
