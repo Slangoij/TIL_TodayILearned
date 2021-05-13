@@ -1,0 +1,15 @@
+# Object Detection
+- 컴퓨터 비전 분야 중 하나
+- 컴터 비전 분야: 이미지분류, 이미지 의미전 분류(픽셀 분류), 물체검출
+- Localization + Classification
+- Localization
+  - 2가지 방법
+    - x, y, w, h 좌표 이용
+    - x_min, y_min, x_max, y_max 좌표 이용
+  - class: bounding box 안에 물체의 class
+  - confidence score: bounding box 안에 실제 물체가 있을 것이라 확신하는 확률
+- 성능평가
+  - IoU(Intersection Over Union): Ground Truth box와 모델이 예측한 Bounding box가 겹치는 정도
+  - NMS(Non-Maximum Suppression): 성능지표는 아니지만, 겹치는 bbox(bounding box)를 제거하기 위한 기법
+  - mAP(mean Average Precision): 여러 개의 실제 Obj가 검출된 Recall(재현율)의 변화에 따른 Precision(정밀도)값을 평균화한 것 (검출해야하는 총 class의 각 AP를 전체로 평균낸 것)
+    - 재현율: 실제 물체 중 얼마나 많은 물체에 박스를 쳤는지 / 정밀도: 박스를 친 것 중 얼마나 많이 맞췄는가
