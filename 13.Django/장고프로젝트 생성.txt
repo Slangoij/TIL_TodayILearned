@@ -1,0 +1,56 @@
+가상환경
+conda create -n django python=3.8
+conda activate django
+pip install django
+pip install jupyter
+
+directory : first_project
+control + `
+
+control+shift+p
+terminal
+터미널: 기본프로필선택  => 명령프롬프트
+
+장고 프로젝트생성
+django-admin  startproject  config . 
+
+config/settings.py
+ LANGUAGE_CODE = 'ko-KR'
+ TIME_ZONE = 'Asia/Seoul'
+
+- python manage.py makemigrations
+- python manage.py migrate
+- python manage.py createsuperuser
+- python manage.py runserver
+
+http://127.0.0.1:8000/admin
+
+# app을 생성
+- python manage.py startapp exam
+- config/settings.py
+   - INSTALLED_APPS 에 App(exam)을 추가
+- url설정 작업
+  - exam 아래 urls.py 파일을 만들기.
+  - config/urls.py 에 exam.urls.py를 추가.
+- exam/views.py
+  - 사용자 요청을 처리하는 함수 구현.
+- exam/urls.py에 위에서 만든 함수와 url을 설정 
+
+- http://127.0.0.1:8000/exam/hello1
+
+
+- 새폴더 생성
+ - exam아래   templates/exam
+ - 새파일: greeting.html
+
+
+
+python manage.py  명령어
+
+
+
+
+
+
+
+

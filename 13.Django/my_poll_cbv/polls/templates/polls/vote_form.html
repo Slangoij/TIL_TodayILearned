@@ -1,0 +1,32 @@
+<!--template/polls/vote_form.html-->
+{% extends "layout.html" %}
+
+{% block title %}투표폼{% endblock title %}
+{% block contents %}
+<h1>투표 폼</h1>
+{% if error_message != None %}
+<div style="color:red">
+    {{error_message}} {# 출력 태그 - 변수가 없거나 None일 경우 아무것도 출력하지 않음 #}
+</div>
+{% else %}
+    <div style='color:blue'>에러메세지가 없습니다.</div>
+{% endif %}
+
+{{question.pk}}.{{question.question_text}}<p>
+<!-- <form action="/polls/vote" method='POST'> -->
+<form action="{% url 'polls:vote' question.pk %}" method='POST'>
+    {% csrf_token %}{# post방식 요청시 반드시 넣어줘야 한다-csrf 공격을 방지하기 위한 token값을 생성 #}
+    {# cross site  forgery #}
+    <!-- <input type='hidden' name='question_id' value='{{question.pk}}'> -->
+    
+    {% for choice in question.choice_set.all %}
+        {# choice: Choice모델객체 - template주석 #}
+        <input type='radio' name='choice' value='{{choice.pk}}' id="{{choice.pk}}"> {# choice=pk #}
+        <label for='{{choice.pk}}'>{{choice.choice_text}}</label><br>
+    {% endfor %}
+    <input type='submit' value='VOTE' class='btn btn-primary'>
+    <button class='btn btn-secondary'>투표</button>
+    <input type='reset' value='RESET'class='btn btn-danger'>
+    <button type='reset' class='btn btn-warning'>초기화</button>
+</form>
+{% endblock contents %}

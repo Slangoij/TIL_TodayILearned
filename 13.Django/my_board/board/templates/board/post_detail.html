@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}글상세{% endblock title %}
+
+{% block contents %}
+<!-- 조회결과 변수: object, post -->
+<h1 style="border-bottom: 1px solid gray;padding-bottom: 5px;">{{object.pk}}. {{object.title}}</h1>
+
+<div style="border-bottom: 1px solid gray;padding-bottom: 5px;">
+    <b>작성일시:</b>:{{object.create_at|date:"Y/m/d H:i:s"}}
+    <b>수정일시:</b>:{{object.update_at|date:"Y/m/d H:i:s"}}
+    <b>글분류:</b>:{{object.category.category_name}}
+</div>
+<div style="border-bottom: 1px solid gray;padding-bottom: 5px;min-height: 200px;">
+    {{object.content|linebreaksbr}}
+</div>
+<div>
+    <br>
+    <a href="{% url 'board:update' object.pk %}" class='btn btn-primary'>글수정</a>
+</div>
+{% endblock contents %}

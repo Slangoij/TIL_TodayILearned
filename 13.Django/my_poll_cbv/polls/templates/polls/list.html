@@ -1,0 +1,25 @@
+<!-- templates/polls/list.html -->
+{% extends "layout.html" %}
+
+{% block title %}투표list 페이지{% endblock title %}
+
+{% block contents %}
+<a href='http://daum.net'>Da&nbsp;um</a>
+<!-- &npsb; 요거 하나가 공백하나. 이외의 문자는 전부 공백 하나로 출력 -->
+<a href='http://naver.com'>Naver</a>
+<h2>설문 목록</h2>
+질문 총 개수:{{question_list|length}}
+<ul class="lsit-group">
+    {% for question in question_list %}
+    <li class="list-group-item">
+        <!-- <a href='/polls/vote_form/{{question.id}}'> -->
+        <a href='{% url "polls:vote" question.id %}'>
+            {{question.question_text | truncatewords:2}}
+        </a>
+        {{question.pub_date | date:'Y-m-d'}}
+    </li>
+    {% empty %}
+        <b>등록된 질문이 없습니다.</b>
+    {% endfor %}
+</ul>
+{% endblock contents %}

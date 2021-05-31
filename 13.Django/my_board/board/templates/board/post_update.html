@@ -1,0 +1,15 @@
+<!-- board/templates/board/post_update.html -->
+{% extends "layout.html" %}
+{% load bootstrap4 %}
+
+{% block title %}글 수정 폼{% endblock title %}
+
+{% block contents %}
+<h1>글 수정폼</h1>
+<form method='post'>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type='submit' class='btn btn-primary'>글수정</button>
+    <button type='reset' class='btn btn-info'>초기화</button>
+</form>
+{% endblock contents %}

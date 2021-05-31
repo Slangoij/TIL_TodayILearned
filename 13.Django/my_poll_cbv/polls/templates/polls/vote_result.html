@@ -1,0 +1,16 @@
+<!-- templates/polls/vote_result.html -->
+{% extends "layout.html" %}
+
+{% block title %}투표 결과{% endblock title %}
+{% block contents %}
+<h1>투표 결과</h1>
+{{question.pk}}. {{question.question_text}}
+<ol class='list-group'>
+    {% for choice in question.choice_set.all %}
+    <li class='list-group-item'>{{choice.choice_text}} - {{choice.vote}}</li>
+    {% endfor %}
+</ol>
+
+<!-- <a href="/polls/list">질문목록</a> -->
+<a href="{% url 'polls:list' %}" class='btn btn-warning'>질문목록</a>
+{% endblock contents %}
