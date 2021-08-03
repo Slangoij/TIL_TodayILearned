@@ -13,7 +13,7 @@ soolst.sort()
 lftlst, rgtlst = soolst[:N//2], soolst[N//2:]
 
 # 리스트의 모든 값의 합을 구한 리스트를 각각 추가
-# 여기서 시초난듯하다?
+# 여기서 시초난듯하다? => 
 leng = len(lftlst)
 sum_lft, sum_rgt = [], []
 for i in range(leng+1):
