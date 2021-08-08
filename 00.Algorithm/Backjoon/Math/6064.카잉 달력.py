@@ -1,38 +1,29 @@
 import sys
 input = sys.stdin.readline
+from math import gcd
 
 T = int(input())
 answer = []
 for _ in range(T):
     M, N, x, y = map(int, input().split())
-    if M==N:
-        if x==y:
+
+    if M == N:
+        if x == y:
             answer.append(x)
         else:
             answer.append(-1)
         continue
-    if M>N:
+    if M > N:
         M,N = N,M
         x,y = y,x
-    tmpans, nowval = x,x
-    gap = abs(M-N)
-    tmplst = [False]*(N+1)
-    while True:
-        if tmplst[nowval] or tmpans > M*N:
-            tmpans = -1
+
+    lcm = M*N//gcd(M,N)
+    tmpans = -1
+    for i in range(x, lcm+1, M):
+        if (i-1)%N == y-1:
+            tmpans = i
             break
-        tmplst[nowval] = True
-        if nowval == y:
-            break
-
-        tmpans += M
-        nowval = (nowval-gap-1)%N + 1
-
-
-    if tmpans > M*N or tmpans == -1:
-        answer.append(-1)
-    else:
-        answer.append(tmpans)
+    answer.append(tmpans)
 
 for ans in answer:
     print(ans)
@@ -49,6 +40,29 @@ for ans in answer:
 
 1
 40000 39999 39999 39998
+
+15
+40000 39999 39999 39998
+40000 39999 40000 39999
+40000 40000 40000 39999
+40000 39998 40000 39997
+39999 2 39998 2
+3 40000 3 39999
+40000 3 40000 3
+8 2 4 2
+10 12 2 12
+12 10 12 10
+12 10 1 1
+12 6 12 6
+10 1 5 1
+1 10 1 5
+1 1 1 1
+
+1
+39999 2 39998 2
+
+1
+3 4 3 4
 
 """
 
@@ -81,3 +95,34 @@ for ans in answer:
 #     answer.append(tmpans)
 # else:
 #     answer.append(-1)
+
+# # 3번째 시도
+# # 연산량을 줄이기 위해 리스트로 확인하는 걸로 대체했지만 여전히 시간초과
+# if M == N:
+#     if x == y:
+#         answer.append(x)
+#     else:
+#         answer.append(-1)
+#     continue
+# if M > N:
+#     M,N = N,M
+#     x,y = y,x
+# tmpans, nowval = x,x
+# gap = N - M
+# tmplst = [False]*(N+1)
+# while True:
+#     if tmplst[nowval] or tmpans > M*N:
+#         tmpans = -1
+#         break
+#     tmplst[nowval] = True
+#     if nowval == y:
+#         break
+
+#     tmpans += M
+#     nowval = (nowval-gap-1)%N + 1
+
+
+# if tmpans > M*N or tmpans == -1:
+#     answer.append(-1)
+# else:
+#     answer.append(tmpans)
