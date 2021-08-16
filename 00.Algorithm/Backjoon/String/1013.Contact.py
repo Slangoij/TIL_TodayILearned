@@ -11,8 +11,6 @@ p = re.compile('(100+1+|01)+')
 for sol in to_sol:
     if p.search(sol):
         if p.fullmatch(sol[:-1]):
-        # stt, end = p.fullmatch(sol).span()
-        # if stt == 0 and end == len(sol)-1:
             print('YES')
         else:
             print('NO')
@@ -30,3 +28,6 @@ for sol in to_sol:
 0110001011001
 
 """
+# 1번째 시도: 풀기전부터 ㅈ어규식이란 힌트 확인 
+# stt, end = p.fullmatch(sol).span()
+# if stt == 0 and end == len(sol)-1:
