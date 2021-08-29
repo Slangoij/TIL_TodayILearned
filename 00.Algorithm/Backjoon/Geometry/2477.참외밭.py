@@ -4,21 +4,17 @@ for _ in range(6):
     mapp.append(list(map(int,input().split())))
 
 dirs = [[] for _ in range(5)]
-little = []
+area = 0
 for j in range(6):
     cnt = 0
-    chk = False
-    for i in range(6):
-        if mapp[(j+i)%6][0] == mapp[(j+i+2)%6][0]:
-            cnt += 1
-            if cnt == 2:
-                little.append(mapp[(j+i)%6][1])
-                little.append(mapp[(j+i+1)%6][1])
-                chk = True
-                break
+    if area == 0:
+        for i in range(6):
+            if mapp[(j+i)%6][0] == mapp[(j+i+2)%6][0]\
+                and mapp[(j+i+1)%6][0] == mapp[(j+i+3)%6][0]:
+                area = - (mapp[(j+i+1)%6][1] * mapp[(j+i+2)%6][1])
     dirs[mapp[j][0]].append(mapp[j][1])
 
-area = max(dirs[1]+dirs[2])*max(dirs[3]+dirs[4])-little[0]*little[1]
+area += max(dirs[1]+dirs[2])*max(dirs[3]+dirs[4])
 
 print(area*K)
 
