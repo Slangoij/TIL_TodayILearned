@@ -2,6 +2,9 @@ import sys
 sys.setrecursionlimit(int(1e6))
 input = sys.stdin.readline
 
+# 첫번째 시도: 메모리 초과
+# 연속적으로 모든 수들이 연결되었다면 호출시 10만번
+# 호출되면서 메모리+시간 초과 가능성
 roots = []
 
 def unif(a, b):
