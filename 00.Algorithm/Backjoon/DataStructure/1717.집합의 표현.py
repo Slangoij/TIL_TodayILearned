@@ -2,33 +2,40 @@
 # 이와 같이 양쪽의 포함 원소수를 비교하고 적은 것을 많은 것
 # 기준으로 바꾸면 루트를 찾아갈 필요없이 바로 roots배열에서 값 확인만 하면 된다.
 # 가 아니라 기존의 부모형태로 찾는 것이 맞다.
+# 함수에 매개변수로 리스트나 자료구조를 넣어주면 레퍼런스 참조와 비슷한 효과
 import sys
 sys.setrecursionlimit(10**8)
 input = sys.stdin.readline
 
-def getrt(a):
-    if roots[a] == a:    
+def getrt(rts, a):
+    if rts[a] < 0:    
         return a
-    return getrt(roots[a])
+    rts[a] = getrt(rts, rts[a])
+    return rts[a]
 
-def unif(a, b):
-    ra = getrt(a)
-    rb = getrt(b)
-    if ra < rb:
-        roots[rb] = ra
-    else:
-        roots[ra] = rb
+def unif(rts, a, b):
+    a = getrt(rts, a)
+    b = getrt(rts, b)
+    # rts[max(a, b)] = min(a, b)
+    if a != b:
+        if rts[a] < rts[b]:
+            rts[a] += rts[b]
+            rts[b] = a
+        else:
+            rts[b] += rts[a]
+            rts[a] = b
 
 n, m = map(int, input().split())
-roots = [i for i in range(n+1)]
+rts = [-1 for i in range(n+1)]
 for _ in range(m):
     func, a, b = map(int, input().split())
     if func == 0:
-        unif(a, b, n)
-    elif getrt(a) == getrt(b):
-        print('YES')
+        unif(rts, a, b)
     else:
-        print('NO')
+        if getrt(rts, a) == getrt(rts, b):
+            print('YES')
+        else:
+            print('NO')
 
 
 """
