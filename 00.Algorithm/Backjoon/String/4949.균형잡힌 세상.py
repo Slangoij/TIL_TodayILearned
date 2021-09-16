@@ -16,7 +16,7 @@ def sol(strr):
     if not chk and not brkt:
         return 'yes'
     else:
-        return 'no'
+    return 'no'
 
 strr = input().rstrip()
 while strr != '.':
