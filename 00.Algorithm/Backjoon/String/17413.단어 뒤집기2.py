@@ -1,6 +1,9 @@
 import sys
 input = sys.stdin.readline
 
+# 다른 사람 풀이: 문자열을 리스트로 변경하여 assignment 가능하게 하고, 이후 인덱스를 하나하나 비교해가며 단어일때만 뒤집어
+# 리스트 업데이트
+# 2차 시도: 연속됨에 상관없이 태그와 단어리스트 하나씩을 순서대로 하나씩 append하여 zip으로 순서 같은 것들 매칭
 S = input().strip()
 tags, words = [], []
 stt = 0
