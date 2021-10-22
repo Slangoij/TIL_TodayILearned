@@ -11,19 +11,14 @@ for _ in range(K):
     heapq.heappush(bags, int(input()))
 
 ans = 0
+able_jewels = []
 for i in range(K):
     crnt_bag = heapq.heappop(bags)
-    able_jewels = []
-    while jewels:
-        crnt_jewel = heapq.heappop(jewels)[-1]
-        if crnt_bag >= crnt_jewel[0]:
-            heapq.heappush(able_jewels, [-crnt_jewel[-1], crnt_jewel])
-        else:
-            heapq.heappush(jewels, [crnt_jewel[0], crnt_jewel])
-            break
+    while jewels and jewels[0][0] <= crnt_bag:
+        crnt_m, crnt_v = heapq.heappop(jewels)[-1]
+        heapq.heappush(able_jewels, (-crnt_v, [crnt_m, crnt_v]))
     if able_jewels:
         ans += heapq.heappop(able_jewels)[-1][-1]
-        while able_jewels:
-            crnt_jewel = heapq.heappop(able_jewels)[-1]
-            heapq.heappush(jewels, [crnt_jewel[0], crnt_jewel])
+    elif not jewels:
+        break
 print(ans)
