@@ -8,7 +8,10 @@ k = int(input())
 mapp = {i: {} for i in range(1, v+1)}
 for _ in range(e):
     uu, vv, ww = map(int, input().split())
-    mapp[uu][vv] = ww
+    if mapp.get(uu, 0) != 0 and mapp.get(uu, 0).get(vv, 0) != 0:
+        mapp[uu][vv] = min(mapp[uu][vv], ww)
+    else:
+        mapp[uu][vv] = ww
 
 
 def dijkstra(maps, stt):
@@ -35,3 +38,14 @@ for ans in dijkstra(mapp, k).values():
         print('INF')
     else:
         print(ans)
+
+"""
+5 6
+1
+5 1 1
+1 2 2
+1 3 3
+2 3 4
+2 4 5
+3 4 6
+"""
