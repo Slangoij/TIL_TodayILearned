@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\00.Algorithm",
-    "\\00.Algorithm\\Backjoon"
+    "\\00.Algorithm\\Backjoon",
+    "\\00.Algorithm\\Backjoon\\String"
   ],
-  "SelectedNode": "\\00.Algorithm\\Backjoon\\String",
+  "SelectedNode": "\\00.Algorithm\\Backjoon\\String\\1357.뒤집힌 덧셈.cpp",
   "PreviewInSolutionExplorer": false
 }
