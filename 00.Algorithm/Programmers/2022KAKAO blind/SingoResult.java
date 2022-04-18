@@ -1,16 +1,29 @@
-import java.util.HashMap;
+import java.util.*;
 
-class Solution {
-    public int[] solution(String[] report, String[] reported, int k) {
+
+public class SingoResult{
+    public int[] solution(String[] id_list, String[] report, int k) {
         int[] answer = {};
-        int whole_num = report.length;
 
-        int[] reported = new int[report.length];
-        for (int i=0;i<report.length;i++){
-
+        HashMap<String, ArrayList<String>> map = new HashMap<>();
+        foreach(String str : report)
+        {
+            String[] splstr = str.split();
+            if (map.get(splstr[1]) == null)
+            {
+                ArrayList<String> tmparr = new ArrayList<String>(Arrays.asList(splstr[0]));
+                map.put(splstr[1], tmparr);
+            }
+            else
+            {
+                map.put(splstr[1], map.get(splstr[1]).add(splstr[0]));
+            }
         }
-
-
+        
         return answer;
     }
+    public static void main(String[] args) {
+        SingoResult.solution();
+    }
 }
+
